@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Maintenance &mdash; VED HiL Application Wiki 1.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/styleConfig.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="VED HiL Application Wiki" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: green" >
+            <a href="../index.html" class="icon icon-home"> VED HiL Application Wiki
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Content</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">General Maintenance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cm9-cm-template-what-s-new">CM9: CM_Template: <em>What’s New</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><strong>4.0.0</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ct-iolib-5-1-0-introduced">CT_IOLib 5.1.0 introduced</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#makefile-facelift">MAKEFILE facelift</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cm7-cm-template-what-s-new">CM7: CM_Template: <em>What’s New</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">8.11.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vehicle-model-generic-libs-integrated">Vehicle Model generic libs integrated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">8.9.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecu-id-functionality">ECU-ID functionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#latest-release-tag">‘Latest Release’ Tag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#genericsensors-mapping-moved-to-customerxy">‘GenericSensors’ mapping moved to CustomerXY</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">8.5.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#flag-added-to-allow-for-sending-pressure-data-over-can2-on-wet-hil">Flag added to allow for sending pressure data over CAN2 on wet HiL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#possibility-to-add-own-fstparameter-selection-dependencies">Possibility to add own FSTParameter selection dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gitinterface-possibility-to-keep-dva-configs-after-project-update">GitInterface: Possibility to keep DVA configs after project update</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">8.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">8.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">6.1.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">6.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">5.3.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cinstruments-what-s-new">cInstruments: <em>What’s New</em></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">2.4.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">2.4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">2.3.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">2.3.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: green" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">VED HiL Application Wiki</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>General Maintenance</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generalMaintenance/genMaintenance.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-maintenance">
+<h1>General Maintenance<a class="headerlink" href="#general-maintenance" title="Permalink to this headline"></a></h1>
+<section id="cm9-cm-template-what-s-new">
+<h2>CM9: CM_Template: <em>What’s New</em><a class="headerlink" href="#cm9-cm-template-what-s-new" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section contains <strong>exclusively selected</strong> innovations in the CM_Template. When updating your project, also check for all other changes.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="id1">
+<h3><strong>4.0.0</strong><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="ct-iolib-5-1-0-introduced">
+<h4>CT_IOLib 5.1.0 introduced<a class="headerlink" href="#ct-iolib-5-1-0-introduced" title="Permalink to this headline"></a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<div class="line-block">
+<div class="line">For usage of the WSS <strong>Bosch DF30i</strong>, <strong>Bosch15i</strong> and <strong>Allegro A1933/23</strong> from this point on, a <strong>firmware update on the M400 to version 4.8</strong> is necessary!</div>
+<div class="line">Be aware that this is only available in connection with <a class="reference external" href="https://continental.sharepoint.com/:u:/r/teams/cs_10003349/CarMakerReleases/CarMaker9/CD-CarMakerHIL-CT20xx-win-xeno-9.1.2_RC3.zip?csf=1&amp;web=1&amp;e=hn0xOj">CM 9.1.2 – RC3</a>.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="makefile-facelift">
+<h4>MAKEFILE facelift<a class="headerlink" href="#makefile-facelift" title="Permalink to this headline"></a></h4>
+<div class="line-block">
+<div class="line">The MAKEFILE content was newly structured to improve the readability.</div>
+<div class="line">It is now clustered into the following groups (seperated by comments)</div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li><p>Project configuration for Jenkins</p></li>
+<li><p>Brake model selection</p></li>
+<li><p>CAN/FlexRay Bus selection</p></li>
+<li><p>Project switches</p></li>
+</ul>
+</div></blockquote>
+<p>Everything below that is not to be changes and should be the identical for all projects.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+</section>
+<section id="cm7-cm-template-what-s-new">
+<h2>CM7: CM_Template: <em>What’s New</em><a class="headerlink" href="#cm7-cm-template-what-s-new" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section contains <strong>exclusively selected</strong> innovations in the CM_Template. When updating your project, also check for all other changes.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<div class="line-block">
+<div class="line">From release <strong>v8.11.0</strong> on there are <strong>no GitHub release packages</strong> for the CM7 branch anymore.</div>
+<div class="line">Nevertheless, there will be CM7 (branch <em>master</em>) updates in the future to a point, where all projects have moved to CM9.</div>
+<div class="line">To update your CM7 project, use the GitHub repository (branch <em>master</em>), download the source files and update your project manually.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="id3">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.11.0">8.11.0</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.9.0...v8.11.0">Code comparison</a></p>
+<section id="vehicle-model-generic-libs-integrated">
+<h4>Vehicle Model generic libs integrated<a class="headerlink" href="#vehicle-model-generic-libs-integrated" title="Permalink to this headline"></a></h4>
+<p>Starting with this release CM_Template is aligned to the Vehicle model departament way of releasing vehicle models and PTCU adapter. Namely, in <strong>src</strong> folder, we can find the <strong>Customer_Models</strong> that contains the libs for the models.</p>
+<p><strong>Warning: when syncronizing with the Template, you will get a conflict. If some of the libraries are generic other will not, especially  Customer_Models.c/h  and Make_Customer_Models, they are OEM specific, so make sure to keep your version of those files.</strong></p>
+<p>Eg:Difference between Volvo and CMT</p>
+<img alt="../_images/customer_models_diff.png" src="../_images/customer_models_diff.png" />
+<p><strong>NB: This sync was needed because there is a divergence in the way vehicle models are treated on the Template , and how the are actually handled in production.</strong></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.9.0">8.9.0</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.8.3...v8.9.0">Code comparison</a></p>
+<section id="ecu-id-functionality">
+<h4>ECU-ID functionality<a class="headerlink" href="#ecu-id-functionality" title="Permalink to this headline"></a></h4>
+<p>In the future every (V)ECU will be equipped with a small board which is connected to the XPACK and which sends out ECU data like OEM-ID, HW Type (e.g. H07 or H08 for VW), HW Number (28.xxx.xxx.x number) and Serial Number of the ECU. This info will be read in after <em>Start&amp;Connect</em> and will be made available in the SessionLog, in <em>Data/Config/ECUParameters</em> and ASCII-coded as DVA quantities.</p>
+<p>To be able to use this functionality, the board has to be available (will be distributed by the HiL Development department) and in the project the option has to be switched on via MAKEFILE flag (set <em>ECU_ID_READ_ACTIVE</em> to true):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>     <span class="c1"># ECU_ID import activation</span>
+     <span class="c1"># (!)only for HiLs with special HW(!)</span>
+<span class="hll">     <span class="n">ECU_ID_READ_ACTIVE</span> <span class="o">=</span> <span class="n">true</span>
+</span></pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="latest-release-tag">
+<h4>‘Latest Release’ Tag<a class="headerlink" href="#latest-release-tag" title="Permalink to this headline"></a></h4>
+<p>Next to the current active release version of the project, it is now displayed if a newer project release is available on GitHub.</p>
+<img alt="../_images/latRelease.png" src="../_images/latRelease.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="genericsensors-mapping-moved-to-customerxy">
+<h4>‘GenericSensors’ mapping moved to CustomerXY<a class="headerlink" href="#genericsensors-mapping-moved-to-customerxy" title="Permalink to this headline"></a></h4>
+<p>The mapping of acclereration sensors was always done generically inside <em>CT_Common/GenericSensors.c</em>. Newer projects have the necessity to map the signals with their own sources (e.g. BMW). To be able to map own signal sources, the mapping was moved into file <em>CustomerXY.c</em>.
+The default signal source will stay as is and can be left untouched for standard projects.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.5.0">8.5.0</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.4.1...v8.5.0">Code comparison</a></p>
+<section id="flag-added-to-allow-for-sending-pressure-data-over-can2-on-wet-hil">
+<h4>Flag added to allow for sending pressure data over CAN2 on wet HiL<a class="headerlink" href="#flag-added-to-allow-for-sending-pressure-data-over-can2-on-wet-hil" title="Permalink to this headline"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>     <span class="c1"># Send HBM pressure data over CAN2 (only wetHil)</span>
+<span class="hll">     <span class="n">IO_CAN_HBM_Pres</span> <span class="o">=</span> <span class="n">false</span>
+</span></pre></div>
+</div>
+<p>By setting this flag to <em>true</em>, CAN2 (which is the 3rd CAN) is transmitting the HBM pressure sensor data to the simulator. This is only done wet HiL systems. On dry HiL systems, CAN2 is still responsible for the S1000 communication to the simulator.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="possibility-to-add-own-fstparameter-selection-dependencies">
+<h4>Possibility to add own FSTParameter selection dependencies<a class="headerlink" href="#possibility-to-add-own-fstparameter-selection-dependencies" title="Permalink to this headline"></a></h4>
+<p>Usually the <em>FSTParameters_xx</em> file is set inside <em>ECUParameters</em> file depending on the <em>Bench type</em> and the <em>System Type</em>. In case you want to add a custom <em>FSTParameters</em> file and the dependency on when to add it is different to the standard, this new feature gives you the option to do so.</p>
+<p>Inside <em>CustomerXY.c</em> you implement your own dependencies and set your file inside <em>ECUParameters</em> in function <em>IO_InitFirst_Custom_SetFSTParams()</em>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">IO_InitFirst_Custom_SetFSTParams</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// custom implementation</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>You can look inside <em>IO_InitFirst_SetFSTParameters(custFSTPar fct)</em> in <em>CT_Common.c</em> how to do it.</p>
+<p>Afterwards (in <cite>IO.cpp</cite>) you give the function name as a parameter to function <em>IO_InitFirst_SetFSTParameters(..)</em></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">IO_InitFirst_SetFSTParameters</span><span class="p">(</span><span class="n">IO_InitFirst_Custom_SetFSTParams</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the standard case where the standard <em>FSTParameters_xx</em> files shall be loaded, the function is called with parameter <cite>NULL</cite>.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="gitinterface-possibility-to-keep-dva-configs-after-project-update">
+<h4>GitInterface: Possibility to keep DVA configs after project update<a class="headerlink" href="#gitinterface-possibility-to-keep-dva-configs-after-project-update" title="Permalink to this headline"></a></h4>
+<p>If it’s needed to preserve the data inside folder <em>‘Data/Config’</em>, especially the <strong>DVA</strong> config files, you can check this box and the folder will be restored after the project update.</p>
+<img alt="../_images/gitInterfaceDVA.png" src="../_images/gitInterfaceDVA.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.4.0">8.4.0</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.0.0...v8.4.0">Code comparison</a></p>
+<ul class="simple">
+<li><p>New CT_IOLib 4.7.2 introduced</p></li>
+<li><p>‘cInstruments v2.3.1’ parameter file update</p></li>
+<li><p>‘Dynamic Load’ changed to Makefile dependency</p></li>
+<li><p>CT_Common_PV_BrakeCaliperConfiguration function extended to 4 parameters</p></li>
+<li><p>Tooth jitter tests included</p></li>
+<li><p>fix for multiple issues</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id11">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.0.0">8.0.0</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v6.1.0...v8.0.0">Code comparison</a></p>
+<p>Changes in the model:</p>
+<ul class="simple">
+<li><p>IPB with hydraulic preload for SIL now has limited iterations (20) and the accuracy is reduced to 10^-7 as default</p></li>
+<li><p>Number of iterations, accuracy and contact stiffness are now parameters</p></li>
+<li><p>Corrected the NaN error for HBE load torque</p></li>
+<li><p>ModelVersionInfo is now correct also for MKC1 HAD</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id13">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v6.1.0">6.1.0</a><a class="headerlink" href="#id13" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v6.0.0...v6.1.0">Code comparison</a></p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure to install <strong>CarMaker v7.1.5RC2</strong> on your HiL when using this update!</p>
+</div>
+<p>Depending on the HiL system, referenced in the <code class="docutils literal notranslate"><span class="pre">HiLBenchConfig</span></code> file, the right <strong>FSTParameters</strong> file (located in folder <em>Data/Config/FST</em>) will be set in <strong>ECUParameters</strong> at CarMaker <em>Start&amp;Connect</em>. The information which FailSafeTester is used, is read out of the <cite>HilBenchConfig</cite> file.</p>
+<p>Depending on the measurement system - HULC (USB) or HULC2 (Ethernet) - the right <strong>XCPParameters</strong> file (located in folder <em>Data/Config/XPC</em>) will be set in <strong>ECUParameters</strong> at CarMaker <em>Start&amp;Connect</em>. The information which system is available at the respective HiL is read out of the <cite>HilBenchConfig</cite> file.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<div class="line-block">
+<div class="line">The customization of the <em>FST/FSTParameters_xxx</em> files is explained [here](./../50_ApplicationGuidelines/FST_Parameters.md).</div>
+<div class="line"><strong>Please make sure to only edit the files in the *FST* subfolder</strong> (and not the file in the <em>Data/Config</em>, as this file is always overwritten.)</div>
+</div>
+<div class="line-block">
+<div class="line">The <em>XCPParameters</em> variants are already preconfigured in the <em>XCP</em> subfolder.</div>
+<div class="line">If necessary you can edit the files in the subfolder according to you system needs.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To be able to use a custom made <em>XCPParameters</em> file created in the <em>XCP Configuration</em> dialogue, a new menu entry was added:</p>
+<img alt="../_images/xcpAutoSet.png" src="../_images/xcpAutoSet.png" />
+<p>Under <em>Settings</em> you can find a new entry, <em>‘XCPParameters’ AutoSet</em>. Per default this entry is checked, so the XCPParameters file is set automatically depending on the measurement system. If you want to use your custom made ‘XCPParameters’ file, uncheck this entry. After <em>Start&amp;Connect</em> your file is used.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Check also for all other changes by merging or by code comparison!</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id15">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v6.0.0">6.0.0</a><a class="headerlink" href="#id15" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v5.3.4...v6.0.0">Code comparison</a></p>
+<p>As part of the upcoming <a class="reference external" href="https://github.conti.de/pages/uidv4918/ProjectSetupGuide/">ProjectSetupGuide</a>, <strong>Doxygen</strong> was introduced to the source code, a first look <a class="reference external" href="https://github.conti.de/pages/VED-CarMaker-HIL/HiL-Application-Wiki/articles/40_ProjectSetupGuide/DoxygenSetup.html">here</a>.
+In essence, it makes the code documentation a vital part of the code writing. At this point it is only meant for code documentation of the basic <em>CM_Template</em> code. If you are willing to use it also for your project code, feel free to also equip your project code with the special descriptors.</p>
+<p>In the future, the <strong>FlexRay and the CAN setup</strong> will be done with the help of the <em>IO Configurator</em>. For this, multiple <em>RBS_xxx</em> function calls are needed in the loop code. As this functions don’t have a negative impact if not used, the function calls are introduced.</p>
+<p>The function <em>IO_Out_FROutMode(unsigned CycleNo)</em> was renamed to <em>IO_Out_BusOutMode(unsigned CycleNo)</em> (as this functionality is not reduced to FlexRay anymore). Please replace the function call in your <em>IO.cpp</em> and also rename the variable <em>FLEXRAY_RUNNING</em> to <em>BUS_RUNNING</em> in <em>globals.h</em> and <em>User.c</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>CT_IoOLib v4.6.0</strong> was introduced. Please make sure to copy all the necessary files. Read also the <em>ReleaseNotes</em> in the <em>CarMaker/doc</em> subfolder.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Check also for all other changes by merging or by code comparison!</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id17">
+<h3><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v5.3.2">5.3.2</a><a class="headerlink" href="#id17" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v5.3.1...v5.3.2)">Code comparison</a></p>
+<p>The <strong>WSSConfig</strong> functionality has slightly changed. In the future it is possible to set the channels of the M400 WSS module in a customer-specific way. In essence the functions concerned with WSS are equipped with arguments for all four channels and the wheels can be set according to customer specification. The pre-defined configuration in the <em>CM_Template</em> code is the most common and can be taken over.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Check also for all other changes by merging or by code comparison!</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="cinstruments-what-s-new">
+<h2>cInstruments: <em>What’s New</em><a class="headerlink" href="#cinstruments-what-s-new" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section contains additional <strong>release notes</strong> for the <em>cInstruments</em> GUI.</p>
+</div>
+<div class="line-block">
+<div class="line">The <strong>Repository</strong> for <em>cInstruments</em> can be found <a class="reference external" href="https://github.conti.de/uidv4918/cInstruments">here</a>.</div>
+<div class="line">The <strong>Online Manual</strong> can be found <a class="reference external" href="https://github.conti.de/pages/uidv4918/cInstruments/">here</a>.</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="id19">
+<h3><a class="reference external" href="https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.4.1">2.4.1</a><a class="headerlink" href="#id19" title="Permalink to this headline"></a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure to update the <strong>ciParameters file</strong> in your project folder for this release!</p>
+</div>
+<ul>
+<li><p>‘Current Consumption’ widget was extended and is visible on all systems:</p>
+<img alt="../_images/currConsumptionRew.png" src="../_images/currConsumptionRew.png" />
+</li>
+<li><p>In case the ‘ciParameters’ file in the projects <em>Data/Config</em> folder is missing entries, the application is stopped.
+In the past a missing entry has led to inconsistent behaviour in case an entry is missing.</p></li>
+<li><p>In case the ‘ciInfoFilePath’ file in the <em>IPG/ci</em> folder is missing entries, the application is not connecting at <em>Start&amp;Connect</em>. Now the application is stopping and reporting the error back.</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id21">
+<h3><a class="reference external" href="https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.4.0">2.4.0</a><a class="headerlink" href="#id21" title="Permalink to this headline"></a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure to update the <strong>ciParameters file</strong> in your project folder for this release!</p>
+</div>
+<ul>
+<li><p>New widget on <strong>wet HiL</strong> systems: <strong>Current Consumption</strong></p>
+<img alt="../_images/currConsumption.png" src="../_images/currConsumption.png" />
+</li>
+<li><p>‘DragMe’ note added to all widgets in the top left corner.</p></li>
+<li><p>MkC2/MkC2-HAD additions</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id23">
+<h3><a class="reference external" href="https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.3.1">2.3.1</a><a class="headerlink" href="#id23" title="Permalink to this headline"></a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure to update the <strong>ciParameters file</strong> in your project folder for this release!</p>
+</div>
+<ul>
+<li><p>New functionality: <strong>MMI (or HMI) text output</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Three groups (meaning three bus signals == DVA quantities) can be used</p></li>
+<li><p>Groups have to be activated</p></li>
+<li><p>Integer values have to be assigned to Text messages (customer specific)</p></li>
+<li><p>Activation and Assignment is done in <strong>ciParameters</strong> file</p></li>
+<li><p>MMI messages will appear in the middle of the dashboard screen:</p></li>
+</ul>
+<img alt="../_images/mmi_messages.png" src="../_images/mmi_messages.png" />
+</div></blockquote>
+</li>
+<li><p>Visualized 2D-Graph values can now be multiplied with a factor</p></li>
+<li><p>Bugfix for <em>MKC2 Hydraulics</em> (removed wrong valve behaviour / removed wrongly displayed text)</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id25">
+<h3><a class="reference external" href="https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.3.0">2.3.0</a><a class="headerlink" href="#id25" title="Permalink to this headline"></a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure to update the <strong>ciParameters file</strong> in your project folder for this release!</p>
+</div>
+<ul>
+<li><p>VW warning lamp ‘EPBerr’ and ‘BAP’ buttons added</p></li>
+<li><dl>
+<dt>New CONTROL widget: <strong>PushButton</strong></dt><dd><img alt="../_images/rel2_3_0_01.png" src="../_images/rel2_3_0_01.png" />
+<img alt="../_images/rel2_3_0_02.png" src="../_images/rel2_3_0_02.png" />
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="VED HiL Application Wiki" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, AMS VED RD K H F.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

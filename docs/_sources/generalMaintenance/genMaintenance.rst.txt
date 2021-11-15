@@ -1,0 +1,326 @@
+General Maintenance
+=====================
+
+CM9: CM_Template: *What's New*
+------------------------------
+
+.. note::
+	This section contains **exclusively selected** innovations in the CM_Template. When updating your project, also check for all other changes.
+
+|
+
+**4.0.0**  
+^^^^^^^^^
+
+CT_IOLib 5.1.0 introduced
+"""""""""""""""""""""""""
+
+.. important::
+	| For usage of the WSS **Bosch DF30i**, **Bosch15i** and **Allegro A1933/23** from this point on, a **firmware update on the M400 to version 4.8** is necessary! 
+	| Be aware that this is only available in connection with `CM 9.1.2 – RC3 <https://continental.sharepoint.com/:u:/r/teams/cs_10003349/CarMaker Releases/CarMaker9/CD-CarMakerHIL-CT20xx-win-xeno-9.1.2_RC3.zip?csf=1&web=1&e=hn0xOj>`_.
+
+|
+
+MAKEFILE facelift
+"""""""""""""""""
+| The MAKEFILE content was newly structured to improve the readability.  
+| It is now clustered into the following groups (seperated by comments)  
+
+	- Project configuration for Jenkins
+	- Brake model selection
+	- CAN/FlexRay Bus selection
+	- Project switches
+
+Everything below that is not to be changes and should be the identical for all projects. 
+
+|
+
+------
+
+|
+
+CM7: CM_Template: *What's New*
+------------------------------
+
+.. note::
+	This section contains **exclusively selected** innovations in the CM_Template. When updating your project, also check for all other changes.
+
+.. attention::
+	| From release **v8.11.0** on there are **no GitHub release packages** for the CM7 branch anymore.
+	| Nevertheless, there will be CM7 (branch *master*) updates in the future to a point, where all projects have moved to CM9.
+	| To update your CM7 project, use the GitHub repository (branch *master*), download the source files and update your project manually.
+
+|
+
+`8.11.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.11.0>`_  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.9.0...v8.11.0>`__    
+
+Vehicle Model generic libs integrated
+"""""""""""""""""""""""""""""""""""""
+Starting with this release CM_Template is aligned to the Vehicle model departament way of releasing vehicle models and PTCU adapter. Namely, in **src** folder, we can find the **Customer_Models** that contains the libs for the models. 
+
+**Warning: when syncronizing with the Template, you will get a conflict. If some of the libraries are generic other will not, especially  Customer_Models.c/h  and Make_Customer_Models, they are OEM specific, so make sure to keep your version of those files.**
+
+Eg:Difference between Volvo and CMT
+
+.. image:: images/customer_models_diff.png
+
+
+**NB: This sync was needed because there is a divergence in the way vehicle models are treated on the Template , and how the are actually handled in production.**
+
+|
+
+`8.9.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.9.0>`_  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.8.3...v8.9.0>`__    
+
+ECU-ID functionality
+"""""""""""""""""""" 
+In the future every (V)ECU will be equipped with a small board which is connected to the XPACK and which sends out ECU data like OEM-ID, HW Type (e.g. H07 or H08 for VW), HW Number (28.xxx.xxx.x number) and Serial Number of the ECU. This info will be read in after *Start&Connect* and will be made available in the SessionLog, in *Data/Config/ECUParameters* and ASCII-coded as DVA quantities.  
+
+To be able to use this functionality, the board has to be available (will be distributed by the HiL Development department) and in the project the option has to be switched on via MAKEFILE flag (set *ECU_ID_READ_ACTIVE* to true):
+
+.. code-block:: python
+   :emphasize-lines: 3
+
+	# ECU_ID import activation 
+	# (!)only for HiLs with special HW(!)
+	ECU_ID_READ_ACTIVE = true
+
+|
+
+'Latest Release' Tag  
+""""""""""""""""""""
+Next to the current active release version of the project, it is now displayed if a newer project release is available on GitHub.  
+
+.. image:: images/latRelease.png
+
+|
+
+'GenericSensors' mapping moved to CustomerXY  
+""""""""""""""""""""""""""""""""""""""""""""
+The mapping of acclereration sensors was always done generically inside *CT_Common/GenericSensors.c*. Newer projects have the necessity to map the signals with their own sources (e.g. BMW). To be able to map own signal sources, the mapping was moved into file *CustomerXY.c*.  
+The default signal source will stay as is and can be left untouched for standard projects.
+
+|
+
+`8.5.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.5.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.geo.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.4.1...v8.5.0>`__
+
+Flag added to allow for sending pressure data over CAN2 on wet HiL  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. code-block:: python
+   :emphasize-lines: 2
+   
+	# Send HBM pressure data over CAN2 (only wetHil)
+	IO_CAN_HBM_Pres = false
+
+By setting this flag to *true*, CAN2 (which is the 3rd CAN) is transmitting the HBM pressure sensor data to the simulator. This is only done wet HiL systems. On dry HiL systems, CAN2 is still responsible for the S1000 communication to the simulator.
+
+|
+
+Possibility to add own FSTParameter selection dependencies
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Usually the *FSTParameters_xx* file is set inside *ECUParameters* file depending on the *Bench type* and the *System Type*. In case you want to add a custom *FSTParameters* file and the dependency on when to add it is different to the standard, this new feature gives you the option to do so. 
+
+Inside *CustomerXY.c* you implement your own dependencies and set your file inside *ECUParameters* in function *IO_InitFirst_Custom_SetFSTParams()*. 
+
+.. code-block:: c
+
+	void IO_InitFirst_Custom_SetFSTParams(void) {
+	  // custom implementation 
+	}
+
+You can look inside *IO_InitFirst_SetFSTParameters(custFSTPar fct)* in *CT_Common.c* how to do it.  
+
+Afterwards (in `IO.cpp`) you give the function name as a parameter to function *IO_InitFirst_SetFSTParameters(..)*  
+
+.. code-block:: c
+
+	void IO_InitFirst_SetFSTParameters(IO_InitFirst_Custom_SetFSTParams);
+.. note::
+	For the standard case where the standard *FSTParameters_xx* files shall be loaded, the function is called with parameter `NULL`.  
+
+|
+
+GitInterface: Possibility to keep DVA configs after project update
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+If it's needed to preserve the data inside folder *'Data/Config'*, especially the **DVA** config files, you can check this box and the folder will be restored after the project update.  
+
+.. image:: images/gitInterfaceDVA.png
+
+|  
+
+`8.4.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.4.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v8.0.0...v8.4.0>`__
+
+- New CT_IOLib 4.7.2 introduced
+- 'cInstruments v2.3.1' parameter file update
+- 'Dynamic Load' changed to Makefile dependency
+- CT_Common_PV_BrakeCaliperConfiguration function extended to 4 parameters
+- Tooth jitter tests included
+- fix for multiple issues
+
+|
+
+`8.0.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v8.0.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v6.1.0...v8.0.0>`__
+
+Changes in the model:
+
+- IPB with hydraulic preload for SIL now has limited iterations (20) and the accuracy is reduced to 10^-7 as default
+- Number of iterations, accuracy and contact stiffness are now parameters
+- Corrected the NaN error for HBE load torque
+- ModelVersionInfo is now correct also for MKC1 HAD 
+
+|
+
+`6.1.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v6.1.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v6.0.0...v6.1.0>`__
+
+.. attention::
+	Make sure to install **CarMaker v7.1.5RC2** on your HiL when using this update!
+
+Depending on the HiL system, referenced in the ``HiLBenchConfig`` file, the right **FSTParameters** file (located in folder *Data/Config/FST*) will be set in **ECUParameters** at CarMaker *Start&Connect*. The information which FailSafeTester is used, is read out of the `HilBenchConfig` file.
+
+
+Depending on the measurement system - HULC (USB) or HULC2 (Ethernet) - the right **XCPParameters** file (located in folder *Data/Config/XPC*) will be set in **ECUParameters** at CarMaker *Start&Connect*. The information which system is available at the respective HiL is read out of the `HilBenchConfig` file.  
+
+.. important::
+   | The customization of the *FST/FSTParameters_xxx* files is explained [here](./../50_ApplicationGuidelines/FST_Parameters.md).  
+   | **Please make sure to only edit the files in the *FST* subfolder** (and not the file in the *Data/Config*, as this file is always overwritten.)  
+ 
+   | The *XCPParameters* variants are already preconfigured in the *XCP* subfolder.  
+   | If necessary you can edit the files in the subfolder according to you system needs.  
+
+|  
+
+To be able to use a custom made *XCPParameters* file created in the *XCP Configuration* dialogue, a new menu entry was added:
+
+.. image:: images/xcpAutoSet.png
+
+Under *Settings* you can find a new entry, *'XCPParameters' AutoSet*. Per default this entry is checked, so the XCPParameters file is set automatically depending on the measurement system. If you want to use your custom made 'XCPParameters' file, uncheck this entry. After *Start&Connect* your file is used.
+
+.. important::
+	Check also for all other changes by merging or by code comparison!
+
+|
+
+`6.0.0 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v6.0.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v5.3.4...v6.0.0>`__
+
+As part of the upcoming `ProjectSetupGuide <https://github.conti.de/pages/uidv4918/ProjectSetupGuide/>`_, **Doxygen** was introduced to the source code, a first look `here <https://github.conti.de/pages/VED-CarMaker-HIL/HiL-Application-Wiki/articles/40_ProjectSetupGuide/DoxygenSetup.html>`_.  
+In essence, it makes the code documentation a vital part of the code writing. At this point it is only meant for code documentation of the basic *CM_Template* code. If you are willing to use it also for your project code, feel free to also equip your project code with the special descriptors.
+
+In the future, the **FlexRay and the CAN setup** will be done with the help of the *IO Configurator*. For this, multiple *RBS_xxx* function calls are needed in the loop code. As this functions don't have a negative impact if not used, the function calls are introduced.  
+
+The function *IO_Out_FROutMode(unsigned CycleNo)* was renamed to *IO_Out_BusOutMode(unsigned CycleNo)* (as this functionality is not reduced to FlexRay anymore). Please replace the function call in your *IO.cpp* and also rename the variable *FLEXRAY_RUNNING* to *BUS_RUNNING* in *globals.h* and *User.c*.
+
+.. note::
+	The **CT_IoOLib v4.6.0** was introduced. Please make sure to copy all the necessary files. Read also the *ReleaseNotes* in the *CarMaker/doc* subfolder.  
+
+.. important::
+	Check also for all other changes by merging or by code comparison!
+
+|    
+
+`5.3.2 <https://github.conti.de/VED-CarMaker-HIL/CM_Template/releases/tag/v5.3.2>`_  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Code comparison <https://github.conti.de/VED-CarMaker-HIL/CM_Template/compare/v5.3.1...v5.3.2)>`__
+
+The **WSSConfig** functionality has slightly changed. In the future it is possible to set the channels of the M400 WSS module in a customer-specific way. In essence the functions concerned with WSS are equipped with arguments for all four channels and the wheels can be set according to customer specification. The pre-defined configuration in the *CM_Template* code is the most common and can be taken over.  
+
+.. important::
+	Check also for all other changes by merging or by code comparison!
+
+| 
+
+-----------
+
+|
+
+cInstruments: *What's New*  
+--------------------------
+
+.. note::
+	This section contains additional **release notes** for the *cInstruments* GUI.  
+ 
+
+| The **Repository** for *cInstruments* can be found `here <https://github.conti.de/uidv4918/cInstruments>`__.  
+| The **Online Manual** can be found `here <https://github.conti.de/pages/uidv4918/cInstruments/>`__.
+
+|  
+
+`2.4.1 <https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.4.1>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. attention::
+	Make sure to update the **ciParameters file** in your project folder for this release!
+
+
+- 'Current Consumption' widget was extended and is visible on all systems:  
+
+  .. image:: images/whats_new/currConsumptionRew.png 
+
+- In case the 'ciParameters' file in the projects *Data/Config* folder is missing entries, the application is stopped.  
+  In the past a missing entry has led to inconsistent behaviour in case an entry is missing.
+- In case the 'ciInfoFilePath' file in the *IPG/ci* folder is missing entries, the application is not connecting at *Start&Connect*. Now the application is stopping and reporting the error back.
+
+|
+
+`2.4.0 <https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.4.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. attention::
+	Make sure to update the **ciParameters file** in your project folder for this release!
+
+- New widget on **wet HiL** systems: **Current Consumption**
+
+  .. image:: images/whats_new/currConsumption.png 
+
+- 'DragMe' note added to all widgets in the top left corner.
+- MkC2/MkC2-HAD additions
+
+|
+
+`2.3.1 <https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.3.1>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. attention::
+	Make sure to update the **ciParameters file** in your project folder for this release!
+
+- New functionality: **MMI (or HMI) text output**  
+
+   - Three groups (meaning three bus signals == DVA quantities) can be used
+   - Groups have to be activated
+   - Integer values have to be assigned to Text messages (customer specific)
+   - Activation and Assignment is done in **ciParameters** file
+   - MMI messages will appear in the middle of the dashboard screen:
+
+   .. image:: images/whats_new/mmi_messages.png
+
+- Visualized 2D-Graph values can now be multiplied with a factor
+- Bugfix for *MKC2 Hydraulics* (removed wrong valve behaviour / removed wrongly displayed text)
+
+|
+
+`2.3.0 <https://github.conti.de/uidv4918/cInstruments/releases/tag/v2.3.0>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. attention::
+	Make sure to update the **ciParameters file** in your project folder for this release!
+
+- VW warning lamp 'EPBerr' and 'BAP' buttons added  
+  
+
+- New CONTROL widget: **PushButton**  
+   .. image:: images/whats_new/rel2_3_0_01.png  
+   .. image:: images/whats_new/rel2_3_0_02.png
